@@ -453,7 +453,7 @@ function Renderer ({renderList, wrapper}) {
   this._getWrapper = () => {
     this.wrapper = document.querySelector(`.${wrapper}`);
     return this.wrapper;
-  }
+  };
   this._createElements = ({ list, wrapper }) => {
     list.forEach((element) => {
       this._componentRendering(wrapper, element);
@@ -462,7 +462,7 @@ function Renderer ({renderList, wrapper}) {
   this._componentRendering = (wrapper, element) => {
     const { markup, count = 1, classes = [], name } = element;
     const tempCount = classes.length || count;
-    this.renderedElements[name] = []
+    this.renderedElements[name] = [];
     for (let i = 0; i < tempCount; i++) {
         const element = document.createElement(`div`);
         if (classes[i]) {
