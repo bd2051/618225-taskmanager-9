@@ -444,33 +444,33 @@ const getCreateAndEditFormMarkup = () =>
 
 const getLoadMoreButtonMarkup = () => `<button class="load-more" type="button">load more</button>`;
 
-function Renderer ({renderList, wrapper}) {
+function Renderer({renderList, wrapper}) {
   this.renderedElements = {};
   this.wrapper = null;
-  this.render = () => this._createElements({ list: this._renderList, wrapper: this._getWrapper() });
+  this.render = () => this._createElements({list: this._renderList, wrapperElement: this._getWrapper()});
 
   this._renderList = renderList;
   this._getWrapper = () => {
     this.wrapper = document.querySelector(`.${wrapper}`);
     return this.wrapper;
   };
-  this._createElements = ({ list, wrapper }) => {
-    list.forEach((element) => {
-      this._componentRendering(wrapper, element);
+  this._createElements = ({list, wrapperElement}) => {
+    list.forEach((elementOptions) => {
+      this._componentRendering(wrapperElement, elementOptions);
     });
   };
-  this._componentRendering = (wrapper, element) => {
-    const { markup, count = 1, classes = [], name } = element;
+  this._componentRendering = (wrapperElement, elementOptions) => {
+    const {markup, count = 1, classes = [], name} = elementOptions;
     const tempCount = classes.length || count;
     this.renderedElements[name] = [];
     for (let i = 0; i < tempCount; i++) {
-        const element = document.createElement(`div`);
-        if (classes[i]) {
-          element.classList.add(classes[i])
-        }
-        element.innerHTML = `${markup}`;
-        wrapper.append(element);
-        this.renderedElements[name].push(element)
+      const element = document.createElement(`div`);
+      if (classes[i]) {
+        element.classList.add(classes[i]);
+      }
+      element.innerHTML = `${markup}`;
+      wrapperElement.append(element);
+      this.renderedElements[name].push(element);
     }
   };
 }
@@ -516,4 +516,4 @@ const rendererList = [
   }),
 ];
 
-rendererList.forEach(el => el.render());
+rendererList.forEach((el) => el.render());
