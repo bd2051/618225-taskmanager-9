@@ -1,4 +1,4 @@
-const getSearchMarkup = () =>
+export const _getSearchMarkup = () =>
   `<section class="main__search search container">
     <input
       type="text"
@@ -8,6 +8,3 @@ const getSearchMarkup = () =>
     />
     <label class="visually-hidden" for="search__input">Search</label>
   </section>`;
-
-export const search = getSearchMarkup();
-

@@ -1,3 +1,14 @@
-const getLoadMoreButtonMarkup = () => `<button class="load-more" type="button">load more</button>`;
+import Renderer from "../renderer";
+import {getLoadMoreButtonMarkup} from "./templates";
 
-export const loadMoreButton = getLoadMoreButtonMarkup();
+export class LoadMoreButton extends Renderer {
+  constructor() {
+    super({
+      wrapper: `board`,
+      renderList: [{
+        name: `loadMoreButton`,
+        markup: getLoadMoreButtonMarkup(),
+      }],
+    });
+  }
+}
