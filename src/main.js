@@ -4,18 +4,33 @@ import {LoadMoreButton} from "./components/load-more-button";
 import {TaskPanel} from "./components/taskPanel";
 import {getFilter, getTask} from "./data";
 
-const tasks = Array(3)
+const tasks = Array(19)
   .fill(``)
   .map(() => {
     return getTask();
   });
-const filters = getFilter(tasks)
+const filters = getFilter(tasks);
 
-const rendererList = [
-  new Control(),
-  new FilterPanel({filters}),
-  new LoadMoreButton(),
-  new TaskPanel(tasks),
+const control = new Control();
+const filterPanel = new FilterPanel({filters});
+const loadMoreButton = new LoadMoreButton();
+const taskPanel = new TaskPanel(tasks);
+
+const renderers = [
+  control,
+  filterPanel,
+  loadMoreButton,
+  taskPanel,
 ];
 
-rendererList.forEach((el) => el.render());
+renderers.forEach((el) => el.render());
+
+taskPanel.editTask(0);
+
+
+loadMoreButton.renderedElements.button.addEventListener(`click`, () => {
+  taskPanel.loadMoreTasks();
+  if (!taskPanel.hasMoreTasks) {
+    loadMoreButton.hideButton();
+  }
+});

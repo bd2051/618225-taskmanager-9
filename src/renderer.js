@@ -6,7 +6,6 @@ export default function Renderer({renderList, wrapper}) {
   this._renderList = renderList;
   this._getWrapper = () => {
     this.wrapper = document.querySelector(`.${wrapper}`);
-    console.log(this.wrapper)
     return this.wrapper;
   };
   this._createElements = ({list, wrapperElement}) => {
@@ -17,7 +16,7 @@ export default function Renderer({renderList, wrapper}) {
   this._componentRendering = (wrapperElement, elementOptions) => {
     const {markup, name} = elementOptions;
     const element = document.createElement(`div`);
-    element.innerHTML = `${markup}`;
+    element.innerHTML = markup;
     wrapperElement.append(element);
     this.renderedElements[name] = element;
   };

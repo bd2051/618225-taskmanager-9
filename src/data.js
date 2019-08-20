@@ -35,9 +35,8 @@ export const getTask = () => ({
 });
 
 export const getFilter = (tasks) => {
-  const startOfToday = moment().startOf(`day`).valueOf()
-  const endOfToday = moment().endOf(`day`).valueOf()
-  console.log(tasks)
+  const startOfToday = moment().startOf(`day`).valueOf();
+  const endOfToday = moment().endOf(`day`).valueOf();
   const titlesMap = {
     'all': tasks.length,
     'overdue': tasks.filter(({dueDate}) => dueDate < startOfToday).length,

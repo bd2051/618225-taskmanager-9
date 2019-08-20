@@ -6,9 +6,12 @@ export class LoadMoreButton extends Renderer {
     super({
       wrapper: `board`,
       renderList: [{
-        name: `loadMoreButton`,
+        name: `button`,
         markup: getLoadMoreButtonMarkup(),
       }],
     });
+  }
+  hideButton() {
+    this.renderedElements.button.classList.add(`visually-hidden`);
   }
 }
