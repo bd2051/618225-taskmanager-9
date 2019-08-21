@@ -1,4 +1,4 @@
-const getSortMarkup = () =>
+export const _getSortMarkup = () =>
   `<section class="board container">
     <div class="board__filter-list">
       <a href="#" class="board__filter">SORT BY DEFAULT</a>
@@ -8,5 +8,3 @@ const getSortMarkup = () =>
     <div class="board__tasks">
     </div>
   </section>`;
-
-export const sort = getSortMarkup();

@@ -1,4 +1,4 @@
-const getMenuMarkup = () =>
+export const _getMenuMarkup = () =>
   `<section class="control__btn-wrap">
     <input
       type="radio"
@@ -27,5 +27,3 @@ const getMenuMarkup = () =>
       >STATISTICS</label
     >
   </section>`;
-
-export const menu = getMenuMarkup();

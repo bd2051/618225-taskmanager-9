@@ -1,4 +1,4 @@
-const getCreateAndEditFormMarkup = () =>
+export const _getCreateAndEditFormMarkup = () =>
   `<article class="card card--edit card--yellow card--repeat">
   <form class="card__form" method="get">
     <div class="card__inner">
@@ -254,5 +254,3 @@ const getCreateAndEditFormMarkup = () =>
     </div>
   </form>
 </article>`;
-
-export const createAndEditForm = getCreateAndEditFormMarkup();
