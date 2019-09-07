@@ -25,9 +25,17 @@ const renderers = [
 
 renderers.forEach((el) => el.render());
 
-taskPanel.editTask(0);
-
-
+Object.keys(taskPanel.editButtons).forEach((key) => {
+  taskPanel.editButtons[key].addEventListener(`click`, () => {
+    taskPanel.editTask(key);
+  });
+});
+Object.keys(taskPanel.editForms).forEach((key) => {
+  taskPanel.editForms[key].addEventListener(`submit`, (e) => {
+    e.preventDefault();
+    taskPanel.completeTask(key);
+  });
+});
 loadMoreButton.renderedElements.button.addEventListener(`click`, () => {
   taskPanel.loadMoreTasks();
   if (!taskPanel.hasMoreTasks) {
