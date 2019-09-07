@@ -16,6 +16,12 @@ export class TaskPanel extends Renderer {
       })
     });
     this._tasks = tasks;
+    this.editForms = this._renderList.reduce((acc, key) => {
+      const editForm = document.createElement(`div`);
+      editForm.innerHTML = getCreateAndEditFormMarkup();
+      acc[key.name] = editForm;
+      return acc;
+    }, {});
   }
   loadMoreTasks() {
     tasksCounter += TASKS_COUNT;
@@ -36,10 +42,16 @@ export class TaskPanel extends Renderer {
   get hasMoreTasks() {
     return this._tasks.length >= tasksCounter + TASKS_COUNT;
   }
+  get editButtons() {
+    return Object.keys(this.renderedElements).reduce((acc, key) => {
+      acc[key] = this.renderedElements[key].querySelector(`.card__btn--edit`);
+      return acc;
+    }, {});
+  }
   editTask(name) {
-    const editForm = document.createElement(`div`);
-    editForm.innerHTML = getCreateAndEditFormMarkup();
-    this.wrapper.replaceChild(editForm, this.renderedElements[name]);
-    this.renderedElements[name] = editForm;
+    this.wrapper.replaceChild(this.editForms[name], this.renderedElements[name]);
+  }
+  completeTask(name) {
+    this.wrapper.replaceChild(this.renderedElements[name], this.editForms[name]);
   }
 }
