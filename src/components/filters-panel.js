@@ -23,7 +23,6 @@ export class FilterPanel extends Renderer {
     Array.from(this.renderedElements.sort.childNodes).filter((el) => el.classList).forEach((el) => {
       el.classList.add(`visually-hidden`);
     });
-    console.log(noTaskElement);
     this.renderedElements.sort.appendChild(noTaskElement);
   }
 }

@@ -35,7 +35,6 @@ class Task {
       this.isEditing = false;
     };
     this._onClickArchiveButton = (e) => {
-      console.log(e)
       e.preventDefault();
       this.isArchive = !this.isArchive;
       this._wrapper.dispatchEvent(archiveEvent);
