@@ -5,6 +5,8 @@ export const _getTaskCardMarkup = (
       repeatingDays,
       tags,
       color,
+      isArchive,
+      isFavorite
     }
 ) => `<article class="card card--${color} ${Object.keys(repeatingDays).some((day) => repeatingDays[day]) ? `card--repeat` : ``}">
   <div class="card__form">
@@ -13,12 +15,12 @@ export const _getTaskCardMarkup = (
         <button type="button" class="card__btn card__btn--edit">
           edit
         </button>
-        <button type="button" class="card__btn card__btn--archive">
+        <button type="button" class="card__btn card__btn--archive ${isArchive ? `` : `card__btn--disabled`}">
           archive
         </button>
         <button
           type="button"
-          class="card__btn card__btn--favorites card__btn--disabled"
+          class="card__btn card__btn--favorites ${isFavorite ? `` : `card__btn--disabled`}"
         >
           favorites
         </button>
