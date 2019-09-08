@@ -112,7 +112,7 @@ export class TaskPanel extends Renderer {
       this._renderList = renderList;
     }
     super.render();
-    this.tasks = this._computeTasks({});
+    this.tasks = this._computeTasks(this.tasks);
   }
   get _taskDataMap() {
     return this._tasksData.reduce((acc, task, index) => {
@@ -149,7 +149,8 @@ export class TaskPanel extends Renderer {
     return this._tasksData.length > this.tasksCounter;
   }
   get isAllInArchive() {
-    return Object.values(this.tasks).every((task) => task.isArchive) && !this.hasMoreTasks;
+    return Object.values(this.tasks).every((task) => task.isArchive) &&
+      this._tasksData.slice(this.tasksCounter).every((task) => task.isArchive);
   }
   get openedForms() {
     return Object.keys(this.tasks)
