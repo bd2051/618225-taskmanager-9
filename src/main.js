@@ -23,9 +23,16 @@ const renderers = [
   taskPanel,
 ];
 
-window.tp = taskPanel;
 renderers.forEach((el) => el.render());
 
+if (taskPanel.isAllInArchive) {
+  filterPanel.setNoTasks();
+}
+taskPanel.wrapper.addEventListener(`archive-update`, () => {
+  if (taskPanel.isAllInArchive) {
+    filterPanel.setNoTasks();
+  }
+});
 window.addEventListener(`keydown`, (e) => {
   if (e.key === `Escape`) {
     e.preventDefault();

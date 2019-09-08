@@ -1,17 +1,17 @@
 import Renderer from "../renderer";
 import {getCreateAndEditFormMarkup, getTaskCardMarkup} from "./templates";
+import {createElement} from "../utils";
 
 const TASKS_COUNT = 8;
 const getTaskKey = (i) => `task${i}`;
+const archiveEvent = new Event(`archive-update`);
 
 class Task {
   constructor(task, wrapper, element) {
     this._task = task;
     this._wrapper = wrapper;
     this.element = element;
-    const editingForm = document.createElement(`div`);
-    editingForm.innerHTML = getCreateAndEditFormMarkup();
-    this.editingForm = editingForm;
+    this.editingForm = createElement(getCreateAndEditFormMarkup());
     this._isEditing = false;
     Object.keys(task).forEach((key) => {
       Object.defineProperty(this, key, {
@@ -34,6 +34,12 @@ class Task {
       e.preventDefault();
       this.isEditing = false;
     };
+    this._onClickArchiveButton = (e) => {
+      console.log(e)
+      e.preventDefault();
+      this.isArchive = !this.isArchive;
+      this._wrapper.dispatchEvent(archiveEvent);
+    };
     this._setEvents();
   }
   get editingButton() {
@@ -41,6 +47,9 @@ class Task {
   }
   get inputField() {
     return this.editingForm.querySelector(`textarea.card__text`);
+  }
+  get archiveButton() {
+    return this.element.querySelector(`.card__btn.card__btn--archive`);
   }
   get isEditing() {
     return this._isEditing;
@@ -60,16 +69,14 @@ class Task {
     this._wrapper.replaceChild(this.element, this.editingForm);
   }
   _replaceElement() {
-    const newElement = document.createElement(`div`);
-    newElement.innerHTML = getTaskCardMarkup(this._task);
+    const newElement = createElement(getTaskCardMarkup(this._task));
     if (this._wrapper.contains(this.element)) {
       this._wrapper.replaceChild(newElement, this.element);
     }
     this.element = newElement;
   }
   _replaceEditForm() {
-    const newEditingForm = document.createElement(`div`);
-    newEditingForm.innerHTML = getCreateAndEditFormMarkup();
+    const newEditingForm = createElement(getCreateAndEditFormMarkup());
     if (this._wrapper.contains(this.editingForm)) {
       this._wrapper.replaceChild(newEditingForm, this.editingForm);
     }
@@ -78,10 +85,12 @@ class Task {
   _setEvents() {
     this.editingButton.addEventListener(`click`, this._onClickEditingButton);
     this.editingForm.addEventListener(`submit`, this._onSubmitForm);
+    this.archiveButton.addEventListener(`click`, this._onClickArchiveButton);
   }
   _removeEvents() {
     this.editingButton.removeEventListener(`click`, this._onClickEditingButton);
     this.editingForm.removeEventListener(`submit`, this._onSubmitForm);
+    this.archiveButton.removeEventListener(`click`, this._onClickArchiveButton);
   }
 }
 
@@ -141,12 +150,7 @@ export class TaskPanel extends Renderer {
     return this._tasksData.length > this.tasksCounter;
   }
   get isAllInArchive() {
-    return Object.keys(this.tasks)
-      .filter((key) => this.tasks[key].isArchive)
-      .reduce((acc, key) => {
-        acc[key] = this.tasks[key];
-        return acc;
-      }, {});
+    return Object.values(this.tasks).every((task) => task.isArchive) && !this.hasMoreTasks;
   }
   get openedForms() {
     return Object.keys(this.tasks)

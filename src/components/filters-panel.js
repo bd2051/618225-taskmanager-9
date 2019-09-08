@@ -1,5 +1,6 @@
 import Renderer from "../renderer";
-import {getSearchMarkup, getFilterMarkup, getSortMarkup} from "./templates";
+import {getSearchMarkup, getFilterMarkup, getSortMarkup, getNoTaskMarkup} from "./templates";
+import {createElement} from "../utils";
 
 export class FilterPanel extends Renderer {
   constructor({filters}) {
@@ -16,5 +17,13 @@ export class FilterPanel extends Renderer {
         markup: getSortMarkup(),
       }],
     });
+  }
+  setNoTasks() {
+    const noTaskElement = createElement(getNoTaskMarkup());
+    Array.from(this.renderedElements.sort.childNodes).filter((el) => el.classList).forEach((el) => {
+      el.classList.add(`visually-hidden`);
+    });
+    console.log(noTaskElement);
+    this.renderedElements.sort.appendChild(noTaskElement);
   }
 }

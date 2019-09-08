@@ -1,3 +1,5 @@
+import {createElement} from "./utils";
+
 export default class Renderer {
   constructor({renderList, wrapper}) {
     this.renderedElements = {};
@@ -19,8 +21,7 @@ export default class Renderer {
   }
   _componentRendering(wrapperElement, elementOptions) {
     const {markup, name} = elementOptions;
-    const element = document.createElement(`div`);
-    element.innerHTML = markup;
+    const element = createElement(markup);
     wrapperElement.append(element);
     this.renderedElements[name] = element;
   }

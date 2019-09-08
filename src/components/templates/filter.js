@@ -1,6 +1,6 @@
 export const _getFilterMarkup = (filters) => {
-  const filtersTemplate = filters.map(({title, count}) => `
-    <input
+  const filtersTemplate = filters.map(({title, count}) =>
+    `<input
       type="radio"
       id="filter__${title}"
       class="filter__input visually-hidden"

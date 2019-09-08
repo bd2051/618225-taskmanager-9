@@ -5,6 +5,7 @@ import {_getSortMarkup} from "./sort";
 import {_getFilterMarkup, _getFilterWrapper} from "./filter";
 import {_getSearchMarkup} from "./search";
 import {_getMenuMarkup} from "./menu";
+import {_getNoTaskMarkup} from "./no-tasks";
 
 export const getTaskCardMarkup = _getTaskCardMarkup;
 export const getCreateAndEditFormMarkup = _getCreateAndEditFormMarkup;
@@ -14,3 +15,4 @@ export const getFilterMarkup = _getFilterMarkup;
 export const getFilterWrapper = _getFilterWrapper;
 export const getSearchMarkup = _getSearchMarkup;
 export const getMenuMarkup = _getMenuMarkup;
+export const getNoTaskMarkup = _getNoTaskMarkup;
